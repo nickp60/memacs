@@ -1,0 +1,10 @@
+url/
+elpa/
+auto-save-list/
+abbrev_defs
+config.el
+*~
+tramp
+.emacs.desktop
+.org-id-locations
+ac-comphist.dat
