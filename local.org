@@ -1,0 +1,2 @@
+#+Title: [MACHINE NAME HERE]
+This is the template for local emacs configurations.
