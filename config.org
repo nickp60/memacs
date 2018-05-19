@@ -19,13 +19,9 @@
      '(ansi-color-names-vector ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
      ;; '(bar-cursor-mode nil nil (bar-cursor))
      '(custom-enabled-themes (quote (manoj-dark)))
-     '(ess-swv-processor (quote knitr))
      '(inhibit-startup-buffer-menu t)
      '(org-confirm-babel-evaluate nil)
      '(inhibit-startup-screen t))
-    ;; for knitr
-    (add-to-list 'load-path "~/.emacs.d/ess-16.10/lisp/")
-    (load "ess-site")
     ;; for autocomplete
     (require 'package) ;; You might already have this line
     (add-to-list 'package-archives
@@ -42,8 +38,8 @@
     (setq TeX-parse-self t) ; Enable parse on load. allows for bibtex auti running
     (setq TeX-auto-save t) ; Enable parse on save.
     ;;workgroups; desktop didnt save enough
+    (add-to-list 'load-path "~/.emacs.d/various")
 
-    (add-to-list 'load-path "~/.emacs.d/various/workgroups.el")
     (require 'workgroups)
     (workgroups-mode 1)
     (wg-load "~/nrw_workgroups")
@@ -56,7 +52,6 @@
 
 
     ;; Setup for Flymake code checking.
-    (add-to-list 'load-path "~/.emacs.d/various")
 
     (require 'flymake)
 
