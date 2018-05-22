@@ -1,8 +1,7 @@
-#+ My configs
+#+Title:  My configs
 * my initial .emacs file
 #+BEGIN_SRC emacs-lisp
   (setq TeX-command "/$HOME/bin/pdflatex")
-
     (set-face-attribute 'default nil :height 110)
     (custom-set-faces
      ;; custom-set-faces was added by Custom.
@@ -11,10 +10,6 @@
      ;; If there is more than one, they won't work right.
      )
     (custom-set-variables
-     ;; custom-set-variables was added by Custom.
-     ;; If you edit it by hand, you could mess it up, so be careful.
-     ;; Your init file should contain only one such instance.
-     ;; If there is more than one, they won't work right.
      '(TeX-engine (quote xetex))
      '(ansi-color-names-vector ["black" "#d55e00" "#009e73" "#f8ec59" "#0072b2" "#cc79a7" "#56b4e9" "white"])
      ;; '(bar-cursor-mode nil nil (bar-cursor))
@@ -43,7 +38,7 @@
     (setq TeX-auto-save t) ; Enable parse on save.
     ;;workgroups; desktop didnt save enough
 
-    (add-to-list 'load-path "~/.emacs.d/various/workgroups.el")
+    (add-to-list 'load-path "~/.emacs.d/various")
     (require 'workgroups)
     (workgroups-mode 1)
     (wg-load "~/nrw_workgroups")
@@ -51,31 +46,12 @@
 
     (column-number-mode 1)
 
-    ;; Added 20160915 hopefully this wont cause any issues.
+    ;; always get rid of training white space
     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 
-    ;; Setup for Flymake code checking.
-    (add-to-list 'load-path "~/.emacs.d/various")
+    (add-hook 'after-init-hook #'global-flycheck-mode)
 
-    (require 'flymake)
-
-    ;; Script that flymake uses to check code. This script must be
-    ;; present in the system path.
-    (setq pycodechecker "pychecker.sh")
-
-    (when (load "flymake" t)
-      (defun flymake-pycodecheck-init ()
-	(let* ((temp-file (flymake-init-create-temp-buffer-copy
-			   'flymake-create-temp-inplace))
-	       (local-file (file-relative-name
-			    temp-file
-			    (file-name-directory buffer-file-name))))
-	  (list pycodechecker (list local-file))))
-      (add-to-list 'flymake-allowed-file-name-masks
-		   '("\\.py\\'" flymake-pycodecheck-init)))
-
-    (add-hook 'python-mode-hook 'flymake-mode)
 
     ;; Highlight character at "fill-column" position.
     (require 'column-marker)
@@ -84,10 +60,6 @@
     (add-hook 'python-mode-hook
 	      (lambda () (interactive)
 		(column-marker-1 fill-column)))
-    ;; for Tern
-    (add-to-list 'load-path "./GitHub/tern/emacs/")
-    (autoload 'tern-mode "tern.el" nil t)
-
 #+END_SRC
 
 * UI preferences
@@ -116,6 +88,8 @@ Also, because it remove syntax highlighting, it makes lots of other stuff a pain
 ;;  (when window-system
 ;;    (global-hl-line-mode))
 #+END_SRC
+
+#+RESULTS:
 
 
 ** Task and org-capture management
@@ -232,7 +206,6 @@ Include the =minted= package in all of my LaTeX exports.
   (setq org-latex-listings 'minted)
 #+END_SRC
 
-
 * Set custom keybindings
 
 Just a few handy functions.
@@ -294,6 +267,9 @@ Remap when working in terminal Emacs.
 
 ))
 #+END_SRC
+
+#+RESULTS:
+| lambda | nil | (interactive) | (column-marker-1 fill-column) |
 
 * neotree
 #+BEGIN_SRC emacs-lisp
