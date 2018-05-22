@@ -1,2 +1,10 @@
 #+Title: [MACHINE NAME HERE]
 This is the template for local emacs configurations.
+
+
+* ESS
+The configuration for this differs by system
+#+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "~/.emacs.d/ESS-17.11/lisp/")
+    (load "ess-site")
+#+END_SRC
