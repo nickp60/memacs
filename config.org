@@ -47,15 +47,9 @@
 
 
   ;; Highlight character at "fill-column" position.
-  (require 'column-marker)
-  (setq-default fill-column 79)
-  (set-face-background 'column-marker-1 "red")
-  (add-hook 'python-mode-hook
-	    (lambda () (interactive)
-	      (column-marker-1 fill-column)))
+  (add-hook 'python-mode-hook #'display-fill-column-indicator-mode)
+
 #+END_SRC
-
-
 
 
 * UI preferences
@@ -81,69 +75,11 @@ pairing or presenting code.
 Also, because it remove syntax highlighting, it makes lots of other stuff a pain.
 
 #+BEGIN_SRC emacs-lisp
-  ;;  (when window-system
-  ;;    (global-hl-line-mode))
+    (when window-system
+      (global-hl-line-mode))
 #+END_SRC
 
 #+RESULTS:
-
-
-** Task and org-capture management
-
-# Store my org files in =~/org=, maintain an inbox in Dropbox, define the location
-# of an index file (my main todo list), and archive finished tasks in
-# =~/org/archive.org=.
-
-# #+BEGIN_SRC emacs-lisp
-#   (setq org-directory "~/org")
-
-#   (defun org-file-path (filename)
-#     "Return the absolute address of an org file, given its relative name."
-#     (concat (file-name-as-directory org-directory) filename))
-
-#   ;;  (setq org-inbox-file "~/Dropbox/inbox.org")
-#   (setq org-index-file (org-file-path "index.org"))
-#   (setq org-archive-location
-# 	(concat (org-file-path "archive.org") "::* From %s"))
-# #+END_SRC
-
-# I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
-# there.
-
-# #+BEGIN_SRC emacs-lisp
-#   (setq org-agenda-files (list org-index-file))
-# #+END_SRC
-
-Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
-place in the archive.
-
-#+BEGIN_SRC emacs-lisp
-  (defun hrs/mark-done-and-archive ()
-    "Mark the state of an org-mode item as DONE and archive it."
-    (interactive)
-    (org-todo 'done)
-    (org-archive-subtree))
-
-  (define-key org-mode-map (kbd "C-c C-x C-s") 'hrs/mark-done-and-archive)
-#+END_SRC
-
-Record the time that a todo was archived.
-
-#+BEGIN_SRC emacs-lisp
-  (setq org-log-done 'time)
-#+END_SRC
-
-**** Capturing tasks
-
-#+BEGIN_SRC emacs-lisp
-  ;; (global-set-key (kbd "C-c c") 'org-capture)
-  ;; (setq org-default-notes-file "~/org/index.org")
-
-  ;; (setq org-agenda-files (list "~/org/index.org"))
-
-#+end_SRC
-
-
 
 
 
@@ -261,12 +197,6 @@ Remap when working in terminal Emacs.
 	  ))
 #+END_SRC
 
-* neotree
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/neotree")
-  (require 'neotree)
-  (global-set-key [f8] 'neotree-toggle)
-#+END_SRC
 
 * We need a toggle command to switch themes
 
